@@ -5,7 +5,7 @@ import store from "./store";
 
 // vant 组件库
 import Vant from "vant";
-import "vant/lib/index.css";
+import "vant/lib/index.less";
 
 // rem适配
 import "amfe-flexible";
