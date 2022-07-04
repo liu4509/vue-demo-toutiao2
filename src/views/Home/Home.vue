@@ -12,7 +12,7 @@
     <!-- 频道列表 -->
     <van-tabs v-model="active" sticky offset-top="1.2267rem">
       <van-tab v-for="item in userChannel" :key="item.id" :title="item.name">
-        {{ item.name }}
+        <ArtList :channelId="item.id"></ArtList>
       </van-tab>
     </van-tabs>
     <!-- 频道管理的小图标 -->
@@ -23,6 +23,8 @@
 <script>
 // 用户频道列表API
 import { getUserChannelAPI } from "@/API/homeAPI.js";
+// 文章列表组件
+import ArtList from "@/components/ArtList/ArtList.vue";
 
 export default {
   name: "Home",
@@ -42,6 +44,9 @@ export default {
         this.userChannel = res.data.channels;
       }
     },
+  },
+  components: {
+    ArtList,
   },
   created() {
     this.initUserChannel();
