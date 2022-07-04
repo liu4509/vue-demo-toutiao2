@@ -1,13 +1,10 @@
 <template>
-  <div>
-    <!-- 路由占位符 -->
-    <router-view />
-  </div>
+  <div>User</div>
 </template>
 
 <script>
 export default {
-  name: "App",
+  name: "User",
 };
 </script>
 
