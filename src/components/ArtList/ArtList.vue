@@ -1,10 +1,12 @@
 <template>
   <div>
+    <!-- 下拉加载 -->
     <van-pull-refresh
       v-model="isLoading"
       @refresh="onRefresh"
       :disabled="finished"
     >
+      <!-- 上拉加载 -->
       <van-list
         v-model="loading"
         :finished="finished"
@@ -12,10 +14,12 @@
         @load="onLoad"
         :immediate-check="false"
       >
+        <!-- 文章 item 项  -->
         <ArtItem
           v-for="item in artList"
           :key="item.art_id"
           :article="item"
+          @removeArticle="removeArticle"
         ></ArtItem
       ></van-list>
     </van-pull-refresh>
@@ -78,6 +82,17 @@ export default {
     // 下拉加载
     onRefresh() {
       this.initArtList(true);
+    },
+    // 删除列表里面的 item 项
+    removeArticle(id) {
+      this.artList = this.artList.filter(
+        (item) => item.art_id.toString() !== id
+      );
+      //判断删除数据后 artList 里面的数据 是否满足 10 个
+      if (this.artList.length < 10) {
+        // 不满足重新请求数据
+        this.initArtList();
+      }
     },
   },
   components: {

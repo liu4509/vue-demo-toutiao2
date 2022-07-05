@@ -13,3 +13,16 @@ export const getArtListAPI = (id, time) => {
     },
   });
 };
+// 文章不感兴趣
+export const dislikeArticleAPI = (id) => {
+  return request.post("/v1_0/article/dislikes", {
+    target: id,
+  });
+};
+// 举报文章
+export const removeArticle = (target, type) => {
+  return request.post("/v1_0/article/reports", {
+    target,
+    type,
+  });
+};

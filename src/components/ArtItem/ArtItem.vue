@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- item 项 -->
     <van-cell>
       <!-- // 标题的插槽 -->
       <template #title>
@@ -34,14 +35,54 @@
           >
 
           <!-- 关闭按钮 -->
-          <van-icon name="cross" />
+          <van-icon name="cross" @click.stop="show = true" />
         </div>
       </template>
     </van-cell>
+    <!-- 反馈面板 -->
+    <van-action-sheet
+      v-model="show"
+      :closeable="false"
+      cancel-text="取消"
+      @closed="isFirst = true"
+      get-container="body"
+    >
+      <div v-if="isFirst">
+        <van-cell
+          :title="item.name"
+          clickable
+          class="center-title"
+          v-for="item in actions"
+          :key="item.name"
+          @click="onCellClick(item.name)"
+        />
+      </div>
+      <div v-else>
+        <van-cell
+          title="返回"
+          clickable
+          title-class="center-title"
+          @click="isFirst = true"
+        />
+        <van-cell
+          :title="item.label"
+          clickable
+          title-class="center-title"
+          v-for="item in reports"
+          :key="item.type"
+          @click="reportArticle(item.type)"
+        />
+      </div>
+    </van-action-sheet>
   </div>
 </template>
 
 <script>
+// 反馈面板第二个面板的数据
+import reports from "@/API/reports.js";
+// 文章不感兴趣API
+import { dislikeArticleAPI, removeArticle } from "@/API/homeAPI.js";
+
 export default {
   name: "ArtItem",
   props: {
@@ -49,6 +90,52 @@ export default {
     article: {
       type: Object,
       required: true,
+    },
+  },
+  data() {
+    return {
+      // 反馈面板是否显示
+      show: false,
+      // 第一个面板的可选项列表
+      actions: [
+        { name: "不感兴趣" },
+        { name: "反馈垃圾内容" },
+        { name: "拉黑作者" },
+      ],
+      // 是否展示第一个反馈面板
+      isFirst: true,
+      // 反馈面板第二个面板的数据
+      reports,
+    };
+  },
+  methods: {
+    // 反馈面板点击事件
+    async onCellClick(name) {
+      if (name === "不感兴趣") {
+        const { data: res } = await dislikeArticleAPI(this.artId);
+        if (res.message === "OK") {
+          this.$emit("removeArticle", this.artId);
+        }
+        this.show = false;
+      } else if (name === "拉黑作者") {
+        console.log("拉黑作者");
+        this.show = false;
+      } else if (name === "反馈垃圾内容") {
+        // 删除当前 item 项
+        this.isFirst = false;
+      }
+    },
+    // 举报文章
+    async reportArticle(type) {
+      const { data: res } = await removeArticle(this.artId, type);
+      if (res.message === "OK") {
+        this.$emit("removeArticle", this.artId);
+      }
+    },
+  },
+  computed: {
+    artId() {
+      return this.article.art_id.toString();
     },
   },
 };
@@ -78,5 +165,8 @@ export default {
 .thumb-box {
   display: flex;
   justify-content: space-between;
+}
+.center-title {
+  text-align: center;
 }
 </style>
