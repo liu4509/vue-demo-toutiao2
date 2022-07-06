@@ -26,3 +26,13 @@ export const removeArticle = (target, type) => {
     type,
   });
 };
+// 所有频道的列表
+export const getAllChannelAPI = () => {
+  return request.get("/v1_0/channels");
+};
+// 更新用户频道列表
+export const updataChannel = (channels) => {
+  return request.put("/v1_0/user/channels", {
+    channels,
+  });
+};
