@@ -15,6 +15,8 @@ const User = () => import("@/views/User/User.vue");
 const Search = () => import("@/views/Search/Search.vue");
 // 搜索结果页面
 const SearchResult = () => import("@/views/SearchResult/SearchResult.vue");
+// 文章详情页面
+const ArticleDetail = () => import("@/views/ArticleDetail/ArticleDetail.vue");
 const routes = [
   { path: "/login", component: Login, name: "login" },
   {
@@ -32,6 +34,12 @@ const routes = [
     path: "/search/:kw",
     component: SearchResult,
     name: "search-result",
+    props: true,
+  },
+  {
+    path: "/article/:id",
+    component: ArticleDetail,
+    name: "article-detail",
     props: true,
   },
 ];
