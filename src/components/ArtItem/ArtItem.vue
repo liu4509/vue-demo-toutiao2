@@ -35,7 +35,7 @@
           >
 
           <!-- 关闭按钮 -->
-          <van-icon name="cross" @click.stop="show = true" />
+          <van-icon name="cross" @click.stop="show = true" v-if="isShow" />
         </div>
       </template>
     </van-cell>
@@ -90,6 +90,10 @@ export default {
     article: {
       type: Object,
       required: true,
+    },
+    isShow: {
+      type: Boolean,
+      default: true,
     },
   },
   data() {

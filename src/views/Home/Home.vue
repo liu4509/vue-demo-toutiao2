@@ -6,7 +6,12 @@
         <img src="@/assets/toutiao_logo.png" alt="logo" class="logo" />
       </template>
       <template #right>
-        <van-icon name="search" size="18" color="white" />
+        <van-icon
+          name="search"
+          size="18"
+          color="white"
+          @click="$router.push('/search')"
+        />
       </template>
     </van-nav-bar>
     <!-- 频道列表 -->
@@ -86,18 +91,27 @@
           </div>
           <div class="van-hairline--top sp-line"></div>
           <!-- 更多频道 -->
-          <van-row type="flex">
-            <van-col
-              span="6"
-              v-for="item in moreChannels"
-              :key="item.id"
-              @click="addChannel(item)"
-            >
-              <div class="channel-item van-hairline--surround">
-                {{ item.name }}
+          <div class="more-channel-box">
+            <div class="channel-title">
+              <div>
+                <span class="title-bold">可添加频道：</span>
+                <span class="title-gray">点击添加频道</span>
               </div>
-            </van-col>
-          </van-row>
+            </div>
+            <!-- 频道列表 -->
+            <van-row type="flex">
+              <van-col
+                span="6"
+                v-for="item in moreChannels"
+                :key="item.id"
+                @click="addChannel(item)"
+              >
+                <div class="channel-item van-hairline--surround">
+                  {{ item.name }}
+                </div>
+              </van-col>
+            </van-row>
+          </div>
         </div>
       </div>
     </van-popup>

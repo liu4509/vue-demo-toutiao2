@@ -11,7 +11,10 @@ const Main = () => import("@/views/Main/Main.vue");
 const Home = () => import("@/views/Home/Home.vue");
 // 主页-我的组件
 const User = () => import("@/views/User/User.vue");
-
+// 搜索组件
+const Search = () => import("@/views/Search/Search.vue");
+// 搜索结果页面
+const SearchResult = () => import("@/views/SearchResult/SearchResult.vue");
 const routes = [
   { path: "/login", component: Login, name: "login" },
   {
@@ -23,6 +26,13 @@ const routes = [
       { path: "home", component: Home, name: "home" },
       { path: "user", component: User, name: "user" },
     ],
+  },
+  { path: "/search", component: Search, name: "search" },
+  {
+    path: "/search/:kw",
+    component: SearchResult,
+    name: "search-result",
+    props: true,
   },
 ];
 
