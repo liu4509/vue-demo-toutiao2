@@ -24,3 +24,30 @@ export const addLikeAPI = (target) => {
 export const delLikeAPI = (id) => {
   return request.delete(`/v1_0/article/likings/${id}`);
 };
+// 获取文章评论
+export const getCmtListAPI = (source, offset) => {
+  return request.get("/v1_0/comments", {
+    params: {
+      type: "a",
+      source,
+      offset,
+    },
+  });
+};
+// 评论点赞 API
+export const addLikeCmtAPI = (target) => {
+  return request.post("/v1_0/comment/likings", {
+    target,
+  });
+};
+// 取消评论点赞
+export const delLikeCmtAPI = (cmt_id) => {
+  return request.delete(`/v1_0/comment/likings/${cmt_id}`);
+};
+// 发布评论
+export const pubCommentAPI = (target, content) => {
+  return request.post("/v1_0/comments", {
+    target,
+    content,
+  });
+};

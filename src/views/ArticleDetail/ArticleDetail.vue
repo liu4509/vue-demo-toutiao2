@@ -77,6 +77,9 @@
         >
       </div>
     </div>
+
+    <!-- 文章评论 -->
+    <ArtCmt v-if="article" :id="id"></ArtCmt>
   </div>
 </template>
 
@@ -89,6 +92,10 @@ import {
   addLikeAPI,
   delLikeAPI,
 } from "@/API/articleAPI.js";
+
+// 评论组件
+import ArtCmt from "@/components/ArtCmt/ArtCmt.vue";
+
 export default {
   name: "ArticleDetail",
   props: ["id"],
@@ -129,6 +136,7 @@ export default {
         this.article.attitude = 1;
       }
     },
+    // 取消文章点赞
     async setDelLike() {
       const res = await delLikeAPI(this.id);
       if (res.status === 204) {
@@ -138,9 +146,13 @@ export default {
     },
   },
   computed: {
+    // 作者ID
     autId() {
       return this.article.aut_id.toString();
     },
+  },
+  components: {
+    ArtCmt,
   },
   created() {
     this.initArticle();
