@@ -17,6 +17,8 @@ const Search = () => import("@/views/Search/Search.vue");
 const SearchResult = () => import("@/views/SearchResult/SearchResult.vue");
 // 文章详情页面
 const ArticleDetail = () => import("@/views/ArticleDetail/ArticleDetail.vue");
+// 用户名修改页面
+const UserEdit = () => import("@/views/UserEdit/UserEdit.vue");
 const routes = [
   { path: "/login", component: Login, name: "login" },
   {
@@ -30,6 +32,7 @@ const routes = [
     ],
   },
   { path: "/search", component: Search, name: "search" },
+  { path: "/user/edit", component: UserEdit, name: "user-edit" },
   {
     path: "/search/:kw",
     component: SearchResult,

@@ -46,6 +46,7 @@ export default {
   methods: {
     // 初始化搜索结果列表
     async initSearchList() {
+      this.loading = true;
       const { data: res } = await getSearchResultAPI(this.kw, this.page);
       if (res.message === "OK") {
         this.searchList = [...this.searchList, ...res.data.results];
@@ -55,6 +56,7 @@ export default {
         }
         this.page += 1;
       }
+      this.loading = false;
     },
     // 上拉刷新事件
     onLoad() {
